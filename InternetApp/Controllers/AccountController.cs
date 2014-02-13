@@ -5,6 +5,7 @@ using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Data.Entity;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
@@ -17,6 +18,8 @@ namespace InternetApp.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+
+        private UsersContext db = new UsersContext();
         //
         // GET: /Account/Login
 
@@ -81,6 +84,17 @@ namespace InternetApp.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
+                    int currentUserId = WebSecurity.GetUserId(model.UserName);
+                    using (UsersContext db = new UsersContext())
+                    {
+                        UserProfile up = db.UserProfiles.Single(p => p.UserId == currentUserId);
+
+                        up.FirstName = model.FirstName;
+                        up.LastName = model.LastName;
+                        up.Phone = model.Phone;
+                        up.Email = model.Email;
+                        db.SaveChanges();
+                    }
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
