@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -25,6 +26,25 @@ namespace InternetApp.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
+        public List<Project> Projects { get; set; }
+    }
+
+    public class UserDetailsModel
+    {
+        
+        public UserProfile UserProfiles { get; set; }
+        public List<Project> Projects { get; set; }
+        /*
+        public UserDetailsModel(IEnumerable<InternetApp.Models.Project> projects, IEnumerable<InternetApp.Models.UserProfile> userProfiles)
+        {
+            IEnumerable<InternetApp.Models.UserProfile> UserProfiles = userProfiles;
+            IEnumerable<InternetApp.Models.Project> Projects = projects;
+        }*/
+    }
+
+    public class AccountSearchModel
+    {
+        public List<UserProfile> UserProfiles { get; set; }
     }
 
     public class RegisterExternalLoginModel

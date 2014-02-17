@@ -28,6 +28,17 @@ namespace InternetApp.Controllers
             return View(db.Projects.ToList());
         }
 
+        public ActionResult Search(string searchString = "0")
+        {
+            ViewBag.searchString = searchString;
+            List<Project> projectList = (from p in db.Projects where p.Name.Contains(searchString) select p).ToList();
+
+            //AccountSearchModel model = new AccountSearchModel();
+            //model.UserProfiles = usrProfileList;
+         
+            return View(projectList);
+        }
+
         //
         // GET: /Project/Details/5
 
@@ -77,6 +88,7 @@ namespace InternetApp.Controllers
             var memberId = WebSecurity.GetUserId(User.Identity.Name);
 
             using (ProjectsContext db = new ProjectsContext()) {
+                // User id from selected project id
                 int projUsrId = (from p in db.Projects
                                  where p.ProjectId == id
                                  select p.UserId).Single();

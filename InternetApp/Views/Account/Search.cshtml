@@ -1,0 +1,13 @@
+﻿@model IEnumerable<InternetApp.Models.UserProfile>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search for "@ViewBag.searchString"</h2>
+
+<ul>
+@foreach (var item in Model) {
+<li>@Html.DisplayFor(modelItem => item.UserId)</li>
+}
+</ul>

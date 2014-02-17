@@ -10,6 +10,7 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using InternetApp.Filters;
 using InternetApp.Models;
+using System.Linq.Expressions;
 
 namespace InternetApp.Controllers
 {
@@ -17,6 +18,10 @@ namespace InternetApp.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+        private UsersContext db = new UsersContext();
+        private ProjectsContext dbProjects = new ProjectsContext();
+        ProfileEntities profileDB = new ProfileEntities();
+
         //
         // GET: /Account/Login
 
@@ -24,6 +29,43 @@ namespace InternetApp.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+        // GET: /Account/Details
+
+        public ActionResult Details(int id = 0)
+        {
+            if (id == 0)
+            {
+                id = WebSecurity.GetUserId(User.Identity.Name);
+            }
+
+            ViewBag.userIdent = id;
+
+            UserProfile usrProfileModel = db.UserProfiles.Find(id);
+            List<Project> projectModel = dbProjects.Projects.Where(p => p.UserId ==id).ToList();    
+
+            UserDetailsModel model = new UserDetailsModel();
+            model.Projects = projectModel;
+            model.UserProfiles = usrProfileModel;
+
+            if (usrProfileModel == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(model);
+        }
+
+        public ActionResult Search(string searchString = "0")
+        {/*
+            ViewBag.searchString = searchString;
+            var usrProfileList = (from p in db.UserProfiles where p.Surname.Contains(searchString) select p.UserId);
+
+            //AccountSearchModel model = new AccountSearchModel();
+            //model.UserProfiles = usrProfileList;
+         */
             return View();
         }
 

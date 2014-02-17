@@ -1,0 +1,57 @@
+﻿@model IEnumerable<InternetApp.Models.Project>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search for "@ViewBag.searchString"</h2>
+
+<a href="../Account/Search?searchString=@ViewBag.searchString">Search users</a>
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Difficulty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Detail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Skill)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(@item.Name, "Details/" + @item.ProjectId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Difficulty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Detail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.ActionLink(@item.UserId.ToString(), "../Account/Details/" + @item.UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Skill)
+        </td>
+    </tr>
+}
+
+</table>

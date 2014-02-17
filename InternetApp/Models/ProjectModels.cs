@@ -29,5 +29,6 @@ namespace InternetApp.Models
         public decimal Price { get; set; }
         public int UserId { get; set;}
         public string Skill { get; set; }
+        public UserProfile UserProfiles { get; set; }
     }
 }
