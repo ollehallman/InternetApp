@@ -61,8 +61,8 @@ namespace InternetApp.Models
 
     public class AcccountViewModel
     {
-        UserProfile userProfile;
-        LocalPasswordModel localPasswordModel = new LocalPasswordModel();
+        UserProfile userProfile { get; set; }
+        LocalPasswordModel localPasswordModel { get; set; }
 
     }
 
