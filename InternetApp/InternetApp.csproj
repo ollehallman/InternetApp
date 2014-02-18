@@ -191,6 +191,8 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\ProfileEntities.cs" />
     <Compile Include="Models\ProjectModels.cs" />
+    <Compile Include="Models\SkillLevelModels.cs" />
+    <Compile Include="Models\SkillModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

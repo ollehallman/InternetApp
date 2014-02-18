@@ -44,7 +44,7 @@ namespace InternetApp.Controllers
             ViewBag.userIdent = id;
 
             UserProfile usrProfileModel = db.UserProfiles.Find(id);
-            List<Project> projectModel = dbProjects.Projects.Where(p => p.UserId ==id).ToList();    
+            List<Project> projectModel = dbProjects.Projects.Where(p => p.UserId ==id).ToList();
 
             UserDetailsModel model = new UserDetailsModel();
             model.Projects = projectModel;
@@ -59,14 +59,18 @@ namespace InternetApp.Controllers
         }
 
         public ActionResult Search(string searchString = "0")
-        {/*
+        {
             ViewBag.searchString = searchString;
-            var usrProfileList = (from p in db.UserProfiles where p.Surname.Contains(searchString) select p.UserId);
+            List<UserProfile> usrProfileList = (from u in db.UserProfiles
+                                                where u.UserName.Contains(searchString) ||
+                                                    u.Email.Contains(searchString) ||
+                                                    u.LastName.Contains(searchString)
+                                                select u).ToList();
 
-            //AccountSearchModel model = new AccountSearchModel();
-            //model.UserProfiles = usrProfileList;
-         */
-            return View();
+           // AccountSearchModel model = new AccountSearchModel();
+           // model.UserProfiles = usrProfileList;
+         
+            return View(usrProfileList);
         }
 
         //

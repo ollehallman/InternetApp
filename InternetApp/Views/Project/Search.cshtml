@@ -26,7 +26,7 @@
             @Html.DisplayNameFor(model => model.UserId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Skill)
+            @Html.DisplayNameFor(model => model.SkillName)
         </th>
         <th></th>
     </tr>
@@ -49,7 +49,7 @@
             @Html.ActionLink(@item.UserId.ToString(), "../Account/Details/" + @item.UserId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Skill)
+            @Html.DisplayFor(modelItem => item.SkillName)
         </td>
     </tr>
 }

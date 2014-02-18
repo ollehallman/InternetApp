@@ -4,10 +4,12 @@
     ViewBag.Title = "Search";
 }
 
-<h2>Search for "@ViewBag.searchString"</h2>
+<h2>Results for "@ViewBag.searchString"</h2>
 
-<ul>
 @foreach (var item in Model) {
-<li>@Html.DisplayFor(modelItem => item.UserId)</li>
+    <h2>@Html.ActionLink(@item.UserName, "Details/" + @item.UserId)</h2>
+    <ul>
+    <li>Name: @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</li>
+    <li><a href="mailto:@Html.DisplayFor(modelItem => item.Email)">@Html.DisplayFor(modelItem => item.Email)</a></li>
+    </ul>
 }
-</ul>

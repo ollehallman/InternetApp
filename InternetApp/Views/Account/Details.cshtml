@@ -4,12 +4,15 @@
     ViewBag.Title = "Details";
 }
 
-<h2>@ViewBag.userIdent Profile</h2>
-
-<!-- @Html.DisplayFor(model => model.UserProfiles.UserId) -->
+<h2>@Html.DisplayFor(model => model.UserProfiles.UserName)'s Profile</h2>
 
 <p>
-    Projects user @ViewBag.userIdent owns:
+    Name: @Html.DisplayFor(model => model.UserProfiles.FirstName) @Html.DisplayFor(model => model.UserProfiles.LastName)<br />
+    E-mail: Name: @Html.DisplayFor(model => model.UserProfiles.Email)
+</p>
+
+<p>
+    Projects @Html.DisplayFor(model => model.UserProfiles.FirstName) owns:
     <ul>
    @foreach (var p in Model.Projects)
    {

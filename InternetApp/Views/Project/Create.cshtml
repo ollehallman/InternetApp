@@ -49,11 +49,11 @@
         <input class="text-box single-line" id="UserId" name="UserId" type="hidden" value="@ViewBag.memberIdent" />
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Skill)
+            @Html.LabelFor(model => model.SkillName)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Skill)
-            @Html.ValidationMessageFor(model => model.Skill)
+            @Html.EditorFor(model => model.SkillName)
+            @Html.ValidationMessageFor(model => model.SkillName)
         </div>
 
         <p>
