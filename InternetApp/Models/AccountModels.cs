@@ -59,6 +59,13 @@ namespace InternetApp.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class AcccountViewModel
+    {
+        UserProfile userProfile;
+        LocalPasswordModel localPasswordModel = new LocalPasswordModel();
+
+    }
+
     public class LoginModel
     {
         [Required]

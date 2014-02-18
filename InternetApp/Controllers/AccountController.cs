@@ -107,6 +107,39 @@ namespace InternetApp.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public ActionResult AccountInformation()
+        {
+            {
+                var memberId = WebSecurity.GetUserId(User.Identity.Name);
+                //ViewBag.rovsmor = 
+
+                using (UsersContext db = new UsersContext())
+                {
+                    //var accInfo = (from acc in db.UserProfiles
+                    //               where acc.UserId == memberId
+                    //               select acc).Single();
+
+                    UserProfile userProfile = db.UserProfiles.Find(memberId);
+                    //Project project = db.Projects.Find(id);
+                    if (userProfile == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    else if (userProfile != null)
+                    {
+                        return View(userProfile);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+            }
+        }
+
+
+
         //
         // POST: /Account/Disassociate
 
