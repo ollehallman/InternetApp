@@ -315,6 +315,8 @@
     <Content Include="Views\Account\Details.cshtml" />
     <Content Include="Views\Account\Search.cshtml" />
     <Content Include="Views\Project\Search.cshtml" />
+    <Content Include="Views\Account\DetailsPrivate.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

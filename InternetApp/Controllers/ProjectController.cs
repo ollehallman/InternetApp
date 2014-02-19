@@ -35,7 +35,7 @@ namespace InternetApp.Controllers
 
             //AccountSearchModel model = new AccountSearchModel();
             //model.UserProfiles = usrProfileList;
-         
+
             return View(projectList);
         }
 
@@ -87,22 +87,25 @@ namespace InternetApp.Controllers
         {
             var memberId = WebSecurity.GetUserId(User.Identity.Name);
 
-            using (ProjectsContext db = new ProjectsContext()) {
+            using (ProjectsContext db = new ProjectsContext())
+            {
                 // User id from selected project id
                 int projUsrId = (from p in db.Projects
                                  where p.ProjectId == id
                                  select p.UserId).Single();
 
-                 Project project = db.Projects.Find(id);
-                 if (project == null)
+                Project project = db.Projects.Find(id);
+                if (project == null)
                 {
                     return HttpNotFound();
-                } else if (memberId == projUsrId) {
+                }
+                else if (memberId == projUsrId)
+                {
                     return View(project);
                 }
-                 else
+                else
                 {
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
                 }
             }
         }

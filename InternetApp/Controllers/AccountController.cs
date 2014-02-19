@@ -44,7 +44,7 @@ namespace InternetApp.Controllers
             ViewBag.userIdent = id;
 
             UserProfile usrProfileModel = db.UserProfiles.Find(id);
-            List<Project> projectModel = dbProjects.Projects.Where(p => p.UserId ==id).ToList();
+            List<Project> projectModel = dbProjects.Projects.Where(p => p.UserId == id).ToList();
 
             UserDetailsModel model = new UserDetailsModel();
             model.Projects = projectModel;
@@ -67,9 +67,9 @@ namespace InternetApp.Controllers
                                                     u.LastName.Contains(searchString)
                                                 select u).ToList();
 
-           // AccountSearchModel model = new AccountSearchModel();
-           // model.UserProfiles = usrProfileList;
-         
+            // AccountSearchModel model = new AccountSearchModel();
+            // model.UserProfiles = usrProfileList;
+
             return View(usrProfileList);
         }
 
@@ -127,6 +127,16 @@ namespace InternetApp.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
+                    int currentUserId = WebSecurity.GetUserId(model.UserName);
+
+                    UserProfile up = db.UserProfiles.Single(p => p.UserId == currentUserId);
+                    up.FirstName = model.FirstName;
+                    up.LastName = model.LastName;
+                    up.Phone = model.Phone;
+                    up.Email = model.Email;
+
+                    db.SaveChanges();
+
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
@@ -137,6 +147,63 @@ namespace InternetApp.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        //The private details for the logged in account
+        public ActionResult DetailsPrivate()
+        {
+            var memberId = WebSecurity.GetUserId(User.Identity.Name);
+            UserProfile userProfile = db.UserProfiles.Find(memberId);
+
+            if (userProfile == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                return View(userProfile);
+            }
+
+        }
+
+        //Shows editable account information
+        [HttpGet]
+        public ActionResult Edit()
+        {
+            var memberId = WebSecurity.GetUserId(User.Identity.Name);
+            UserProfile userProfile = db.UserProfiles.Find(memberId);
+
+            if (userProfile == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                return View(userProfile);
+            }
+
+        }
+
+        //If the change is ok, the database will be updated
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(UserProfile model)
+        {
+            if (ModelState.IsValid)
+            {
+                int currentUserId = WebSecurity.GetUserId(User.Identity.Name);
+
+                UserProfile up = db.UserProfiles.Single(p => p.UserId == currentUserId);
+
+                up.FirstName = model.FirstName;
+                up.LastName = model.LastName;
+                up.Phone = model.Phone;
+                up.Email = model.Email;
+                db.SaveChanges();
+
+            }
+            return RedirectToAction("DetailsPrivate");
         }
 
         //
