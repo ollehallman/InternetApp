@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
+using System.Data.Entity;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using InternetApp.Filters;
@@ -127,6 +128,17 @@ namespace InternetApp.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
+                    int currentUserId = WebSecurity.GetUserId(model.UserName);
+                     
+                         UserProfile up = db.UserProfiles.Single(p => p.UserId == currentUserId);
+ 
+                         up.FirstName = model.FirstName;
+                         up.LastName = model.LastName;
+                         up.Phone = model.Phone;
+                         up.Email = model.Email;
+                         
+                         db.SaveChanges();
+                     
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
@@ -138,6 +150,70 @@ namespace InternetApp.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        //Open accountmanagement page for the logged in account.
+         public ActionResult DetailsPrivate()
+         {
+             var memberId = WebSecurity.GetUserId(User.Identity.Name);
+             UsersContext db = new UsersContext();
+             UserProfile userProfile = db.UserProfiles.Find(memberId);
+ 
+             if (userProfile == null)
+             {
+                 return HttpNotFound();
+             }
+             else if (userProfile != null)
+             {
+                 return View(userProfile);
+             }
+             else
+             {
+                 return RedirectToAction("Index");
+             }
+         }
+ 
+         [HttpGet]
+         public ActionResult Edit()
+         {
+             var memberId = WebSecurity.GetUserId(User.Identity.Name);
+             UsersContext db = new UsersContext();
+             UserProfile userProfile = db.UserProfiles.Find(memberId);
+ 
+             if (userProfile == null)
+             {
+                 return HttpNotFound();
+             }
+             else if (userProfile != null)
+             {
+                 return View(userProfile);
+             }
+             else
+             {
+                 return RedirectToAction("Index");
+             }
+         }
+ 
+        [HttpPost]
+         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+         public ActionResult Edit(UserProfile model)
+         {
+             if (ModelState.IsValid)
+             {
+                 int currentUserId = WebSecurity.GetUserId(User.Identity.Name);
+                 using (UsersContext db = new UsersContext())
+                {
+                     UserProfile up = db.UserProfiles.Single(p => p.UserId == currentUserId);
+ 
+                     up.FirstName = model.FirstName;
+                    up.LastName = model.LastName;
+                     up.Phone = model.Phone;
+                     up.Email = model.Email;
+                     db.SaveChanges();
+                 }
+             }
+             return RedirectToAction("DetailsPrivate");
+         }
 
         //
         // POST: /Account/Disassociate

@@ -266,6 +266,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -314,6 +315,8 @@
     <Content Include="Views\Account\Details.cshtml" />
     <Content Include="Views\Account\Search.cshtml" />
     <Content Include="Views\Project\Search.cshtml" />
+    <Content Include="Views\Account\DetailsPrivate.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
