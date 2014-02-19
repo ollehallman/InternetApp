@@ -26,21 +26,21 @@ namespace InternetApp.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         [Display(Name = "Username:")]
-          public string UserName { get; set; }
-         [Display(Name = "First name:")]
-         public string FirstName { get; set; }
-         [Display(Name = "Last name:")]
-         public string LastName { get; set; }
-         [Display(Name = "Phone:")]
-         public string Phone { get; set; }
-         [Display(Name = "Email:")]
-         public string Email { get; set; }
+        public string UserName { get; set; }
+        [Display(Name = "First name:")]
+        public string FirstName { get; set; }
+        [Display(Name = "Last name:")]
+        public string LastName { get; set; }
+        [Display(Name = "Phone:")]
+        public string Phone { get; set; }
+        [Display(Name = "Email:")]
+        public string Email { get; set; }
         public List<Project> Projects { get; set; }
     }
 
     public class UserDetailsModel
     {
-        
+
         public UserProfile UserProfiles { get; set; }
         public List<Project> Projects { get; set; }
         /*
@@ -103,15 +103,15 @@ namespace InternetApp.Models
     {
         [Required]
         [Display(Name = "Username:")]
-          public string UserName { get; set; }
-         [Display(Name = "First name:")]
-         public string FirstName { get; set; }
-         [Display(Name = "Last name:")]
-         public string LastName { get; set; }
-         [Display(Name = "Phone:")]
-         public string Phone { get; set; }
-         [Display(Name = "Email:")]
-         public string Email { get; set; }
+        public string UserName { get; set; }
+        [Display(Name = "First name:")]
+        public string FirstName { get; set; }
+        [Display(Name = "Last name:")]
+        public string LastName { get; set; }
+        [Display(Name = "Phone:")]
+        public string Phone { get; set; }
+        [Display(Name = "Email:")]
+        public string Email { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

@@ -1,55 +1,55 @@
 ﻿@model InternetApp.Models.UserProfile
- @{
-     ViewBag.Title = "DetailsPrivate";
- }
- 
- @using (Html.BeginForm("DetailsPrivate", "Account"))
- {
-     @Html.AntiForgeryToken()
-     @Html.ValidationSummary()
- 
-     <h2>Manage Account.</h2>
-     <h2>Details</h2>
- 
-     <br />
-     <div class="display-label">
-         @Html.DisplayNameFor(model => model.UserName)
-     </div>
-     <div class="display-field">
-         @Html.DisplayFor(model => model.UserName)
-     </div>
-     <br />
-     <div class="display-label">
-         @Html.DisplayNameFor(model => model.FirstName)
-     </div>
-     <div class="display-field">
-         @Html.DisplayFor(model => model.FirstName)
-     </div>
-     <br />
-     <div class="display-label">
-         @Html.DisplayNameFor(model => model.LastName)
-     </div>
-     <div class="display-field">
-         @Html.DisplayFor(model => model.LastName)
-     </div>
-     <br />
-     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Phone)
+@{
+    ViewBag.Title = "DetailsPrivate";
+}
+
+@using (Html.BeginForm("DetailsPrivate", "Account"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <h2>Manage Account.</h2>
+    <h2>Details</h2>
+
+    <br />
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.UserName)
     </div>
-     <div class="display-field">
-         @Html.DisplayFor(model => model.Phone)
-     </div>
-     <br />
-     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Email)
-     </div>
-     <div class="display-field">
-         @Html.DisplayFor(model => model.Email)
-     </div>
- 
- 
-     <p>
-         @Html.ActionLink("Edit", "Edit") |
-         @Html.ActionLink("Back", "Index", "Home")
-     </p>
- }
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserName)
+    </div>
+    <br />
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.FirstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FirstName)
+    </div>
+    <br />
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.LastName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LastName)
+    </div>
+    <br />
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Phone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Phone)
+    </div>
+    <br />
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+
+    <p>
+        @Html.ActionLink("Edit", "Edit") |
+        @Html.ActionLink("Back", "Index", "Home")
+    </p>
+}
