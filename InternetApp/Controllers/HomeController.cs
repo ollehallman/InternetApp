@@ -25,6 +25,7 @@ namespace InternetApp.Controllers
             memberId = WebSecurity.GetUserId(User.Identity.Name);
 
             List<string> skillList = (from p in dbSkillLvl.SkillLevels where p.UserId == memberId select p.SkillName).ToList();
+            //List<int> skillLevel = (from p in dbSkillLvl.SkillLevels where p.UserId == memberId select p.Level).ToList();
 
             List<Project> projectList = (from p in db.Projects where skillList.Any(val => p.SkillName.Contains(val)) select p).ToList();
 

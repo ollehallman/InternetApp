@@ -7,8 +7,18 @@
 <h2>Recommended projects for you</h2>
 @ViewBag.testVar
 
-<table>
-    <tr>
+Filter difficulty:
+<select id="skill-lvl-filter">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+
+</select>
+
+<table id="project-table">
+    <tr class="column-names">
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
@@ -29,7 +39,7 @@
 
     @foreach (var item in Model)
     {
-            <tr>
+            <tr class="@item.Difficulty">
                 <td>
                     @Html.ActionLink(@item.Name, "../Project/Details/" + @item.ProjectId)
                 </td>

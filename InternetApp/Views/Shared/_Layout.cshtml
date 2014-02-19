@@ -5,6 +5,7 @@
         <title>@ViewBag.Title - JOD ASP.NET MVC Application</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width" />
+        
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
     </head>
@@ -50,5 +51,6 @@
 
         @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: false)
+        <script src="../../Scripts/main.js"></script>
     </body>
 </html>
