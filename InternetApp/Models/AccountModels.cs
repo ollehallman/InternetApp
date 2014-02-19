@@ -25,15 +25,30 @@ namespace InternetApp.Models
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
+
+        [Required(ErrorMessage = "Username is required")]
         [Display(Name = "Username:")]
+        [StringLength(150, ErrorMessage = "Your username can't be longer than 150 characters.")]
         public string UserName { get; set; }
+
+        [Required(ErrorMessage = "First name is required")]
         [Display(Name = "First name:")]
+        [StringLength(150, ErrorMessage = "Your first name can't be longer than 150 characters.")]
         public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Last name is required")]
         [Display(Name = "Last name:")]
+        [StringLength(150, ErrorMessage = "Your last name  can't be longer than 150 characters.")]
         public string LastName { get; set; }
+        
         [Display(Name = "Phone:")]
+        [StringLength(30, ErrorMessage = "Your phonenumber can't be longer than 30 characters.")]
         public string Phone { get; set; }
+
+        [Required(ErrorMessage = "Email is required")]
         [Display(Name = "Email:")]
+        [StringLength(100, ErrorMessage = "Your email can't be longer than 100 characters.")]
+        [EmailAddress]
         public string Email { get; set; }
         public List<Project> Projects { get; set; }
     }
@@ -101,19 +116,32 @@ namespace InternetApp.Models
 
     public class RegisterModel
     {
-        [Required]
+        [Required(ErrorMessage="Username is required")]
         [Display(Name = "Username:")]
+        [StringLength(150, ErrorMessage = "Your username can't be longer than 150 characters.")]
         public string UserName { get; set; }
+
+        [Required(ErrorMessage = "First name is required")]
         [Display(Name = "First name:")]
+        [StringLength(150, ErrorMessage = "Your first name can't be longer than 150 characters.")]
         public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Last name is required")]
         [Display(Name = "Last name:")]
+        [StringLength(150, ErrorMessage = "Your last name can't be longer than 150 characters.")]
         public string LastName { get; set; }
+        
         [Display(Name = "Phone:")]
+        [StringLength(30, ErrorMessage = "Your phonenumber can't be longer than 30 characters.")]
         public string Phone { get; set; }
+
+        [Required(ErrorMessage = "Email is required")]
         [Display(Name = "Email:")]
+        [StringLength(100, ErrorMessage = "Your email can't be longer than 100 characters.")]
+        [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Password is required")]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
