@@ -308,7 +308,8 @@
     <Content Include="Views\Project\Create.cshtml" />
     <Content Include="Views\Project\Edit.cshtml" />
     <Content Include="Views\Project\Delete.cshtml" />
-    <Content Include="Views\Account\AccountManagement.cshtml" />
+    <Content Include="Views\Account\AccountEdit.cshtml" />
+    <Content Include="Views\Account\AccountDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

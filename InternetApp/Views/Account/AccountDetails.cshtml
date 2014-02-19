@@ -1,0 +1,51 @@
+﻿@model InternetApp.Models.UserProfile
+@{
+    ViewBag.Title = "AccountDetails";
+}
+
+<h2>Account management</h2>
+
+
+
+<h2>Details</h2>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.UserName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserName)
+    </div>
+    <br />
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.FirstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FirstName)
+    </div>
+    <br />
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.LastName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LastName)
+    </div>
+    <br />
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Phone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Phone)
+    </div>
+    <br />
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+
+<p>
+    @Html.ActionLink("Edit", "AccountEdit") |
+    @Html.ActionLink("Back", "Index", "Home")  
+</p>

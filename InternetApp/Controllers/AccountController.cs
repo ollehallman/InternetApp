@@ -107,26 +107,67 @@ namespace InternetApp.Controllers
             return View(model);
         }
 
-        
-        public ActionResult AccountManagement()
+        //Open accountmanagement page for the logged in account.
+        public ActionResult AccountDetails()
         {
             var memberId = WebSecurity.GetUserId(User.Identity.Name);
             UsersContext db = new UsersContext();
             UserProfile userProfile = db.UserProfiles.Find(memberId);
 
+            if (userProfile == null)
+            {
+                return HttpNotFound();
+            }
+            else if (userProfile != null)
+            {
+                return View(userProfile);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        public ActionResult AccountEdit()
+        {
+            var memberId = WebSecurity.GetUserId(User.Identity.Name);
+            UsersContext db = new UsersContext();
+            UserProfile userProfile = db.UserProfiles.Find(memberId);
 
             if (userProfile == null)
-                    {
-                        return HttpNotFound();
-                    }
+            {
+                return HttpNotFound();
+            }
             else if (userProfile != null)
-                    {
-                        return View(userProfile);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index");
-                    }
+            {
+                return View(userProfile);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult AccountEdit(UserProfile model)
+        {
+            if (ModelState.IsValid)
+            {
+                int currentUserId = WebSecurity.GetUserId(model.UserName);
+                using (UsersContext db = new UsersContext())
+                {
+                    UserProfile up = db.UserProfiles.Single(p => p.UserId == currentUserId);
+
+                    up.FirstName = model.FirstName;
+                    up.LastName = model.LastName;
+                    up.Phone = model.Phone;
+                    up.Email = model.Email;
+                    db.SaveChanges();
+                }
+            }
+            return RedirectToAction("AccountDetails");
         }
 
 

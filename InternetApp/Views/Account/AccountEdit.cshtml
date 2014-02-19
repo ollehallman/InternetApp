@@ -1,0 +1,64 @@
+﻿@model InternetApp.Models.UserProfile
+
+
+@{
+    ViewBag.Title = "Account Management";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <h2>Account Management</h2>
+
+    <br />
+    <div class="display-label">
+     <strong>   @Html.DisplayNameFor(model => model.UserName)</strong>
+    </div>
+    <div class="display-field">
+       <strong> @Html.DisplayFor(model => model.UserName)</strong>
+    </div>
+    <br />
+    <div class="editor-label">
+        @Html.LabelFor(model => model.FirstName)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.FirstName)
+        @Html.ValidationMessageFor(model => model.FirstName)
+    </div>
+    <br />
+    <div class="editor-label">
+        @Html.LabelFor(model => model.LastName)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.LastName)
+        @Html.ValidationMessageFor(model => model.LastName)
+    </div>
+    <br />
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Phone)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Phone)
+        @Html.ValidationMessageFor(model => model.Phone)
+    </div>
+    <br />
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Email)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Email)
+        @Html.ValidationMessageFor(model => model.Email)
+    </div>
+
+
+    <p>
+        <input type="submit" name="AccountManagement" value="Save Changes" />
+        @Html.ActionLink("Back", "AccountDetails")
+    </p>
+    <button onclick="location.href='@Url.Action("Manage", "Account")';return false;">Change Password</button>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
