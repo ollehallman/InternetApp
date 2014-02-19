@@ -93,6 +93,7 @@ namespace InternetApp.Controllers
                         up.LastName = model.LastName;
                         up.Phone = model.Phone;
                         up.Email = model.Email;
+                        
                         db.SaveChanges();
                     }
                     return RedirectToAction("Index", "Home");
@@ -108,7 +109,7 @@ namespace InternetApp.Controllers
         }
 
         //Open accountmanagement page for the logged in account.
-        public ActionResult AccountDetails()
+        public ActionResult Details()
         {
             var memberId = WebSecurity.GetUserId(User.Identity.Name);
             UsersContext db = new UsersContext();
@@ -128,7 +129,8 @@ namespace InternetApp.Controllers
             }
         }
 
-        public ActionResult AccountEdit()
+        [HttpGet]
+        public ActionResult Edit()
         {
             var memberId = WebSecurity.GetUserId(User.Identity.Name);
             UsersContext db = new UsersContext();
@@ -151,11 +153,11 @@ namespace InternetApp.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult AccountEdit(UserProfile model)
+        public ActionResult Edit(UserProfile model)
         {
             if (ModelState.IsValid)
             {
-                int currentUserId = WebSecurity.GetUserId(model.UserName);
+                int currentUserId = WebSecurity.GetUserId(User.Identity.Name);
                 using (UsersContext db = new UsersContext())
                 {
                     UserProfile up = db.UserProfiles.Single(p => p.UserId == currentUserId);
@@ -167,7 +169,7 @@ namespace InternetApp.Controllers
                     db.SaveChanges();
                 }
             }
-            return RedirectToAction("AccountDetails");
+            return RedirectToAction("Details");
         }
 
 

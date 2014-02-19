@@ -1,22 +1,22 @@
 ﻿@model InternetApp.Models.UserProfile
-
-
 @{
-    ViewBag.Title = "Account Management";
+    ViewBag.Title = "Edit";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Account"))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
-    <h2>Account Management</h2>
-
+    
+    <h2>Manage Account.</h2>
+    <h2>Edit</h2>
+    
     <br />
     <div class="display-label">
-     <strong>   @Html.DisplayNameFor(model => model.UserName)</strong>
+        <strong>   @Html.DisplayNameFor(model => model.UserName)</strong>
     </div>
     <div class="display-field">
-       <strong> @Html.DisplayFor(model => model.UserName)</strong>
+        <strong> @Html.DisplayFor(model => model.UserName)</strong>
     </div>
     <br />
     <div class="editor-label">
@@ -50,13 +50,14 @@
         @Html.EditorFor(model => model.Email)
         @Html.ValidationMessageFor(model => model.Email)
     </div>
-
+    <br />
+    <button onclick="location.href='@Url.Action("Manage", "Account")';return false;">Change Password</button>
 
     <p>
-        <input type="submit" name="AccountManagement" value="Save Changes" />
-        @Html.ActionLink("Back", "AccountDetails")
+        <input type="submit" name="Edit" value="Save Changes" id="accountSubmitBtn" />
+        @Html.ActionLink("Back", "Details")
     </p>
-    <button onclick="location.href='@Url.Action("Manage", "Account")';return false;">Change Password</button>
+    
 }
 
 @section Scripts {

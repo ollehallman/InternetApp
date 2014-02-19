@@ -81,25 +81,18 @@ namespace InternetApp.Models
 
     public class RegisterModel
     {
-        [Required]
-        [Display(Name = "User name")]
+
+        [Display(Name = "Username:")]
         public string UserName { get; set; }
-
-        [Required]
-        [Display(Name = "First name")]
+        [Display(Name = "First name:")]
         public string FirstName { get; set; }
-
-        [Required]
-        [Display(Name = "Surname")]
+        [Display(Name = "Last name:")]
         public string LastName { get; set; }
-
-        [Required]
-        [Display(Name = "Phone number")]
+        [Display(Name = "Phone:")]
         public string Phone { get; set; }
-
-        [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Email:")]
         public string Email { get; set; }
+       
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

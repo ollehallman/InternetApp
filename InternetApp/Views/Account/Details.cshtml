@@ -1,14 +1,17 @@
 ﻿@model InternetApp.Models.UserProfile
 @{
-    ViewBag.Title = "AccountDetails";
+    ViewBag.Title = "Details";
 }
 
-<h2>Account management</h2>
+@using (Html.BeginForm("Details", "Account"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    
+    <h2>Manage Account.</h2>
+    <h2>Details</h2>
 
-
-
-<h2>Details</h2>
-
+    <br />
     <div class="display-label">
         @Html.DisplayNameFor(model => model.UserName)
     </div>
@@ -45,7 +48,8 @@
     </div>
 
 
-<p>
-    @Html.ActionLink("Edit", "AccountEdit") |
-    @Html.ActionLink("Back", "Index", "Home")  
-</p>
+    <p>
+        @Html.ActionLink("Edit", "Edit") |
+        @Html.ActionLink("Back", "Index", "Home")
+    </p>
+}
