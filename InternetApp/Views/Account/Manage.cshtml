@@ -1,4 +1,4 @@
-﻿@model InternetApp.Models.AcccountViewModel
+﻿@model InternetApp.Models.LocalPasswordModel
 @{
     ViewBag.Title = "Manage Account";
 }
@@ -11,26 +11,7 @@
 
 <p>You're logged in as <strong>@User.Identity.Name</strong>.</p>
 
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model.userProfile.Name => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Difficulty)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Detail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Skill)
-        </th>
-        <th></th>
-    </tr>
-</table>
+
   
 
 

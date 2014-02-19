@@ -107,89 +107,19 @@ namespace InternetApp.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult AccountInformation(LocalPasswordModel localPassworldModel)
-        {
-            AcccountViewModel accountViewModel = new AcccountViewModel();
-
-            bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-            ViewBag.HasLocalPassword = hasLocalAccount;
-            ViewBag.ReturnUrl = Url.Action("Manage");
-            if (hasLocalAccount)
-            {
-                if (ModelState.IsValid)
-                {
-                    // ChangePassword will throw an exception rather than return false in certain failure scenarios.
-                    bool changePasswordSucceeded;
-                    try
-                    {
-                        changePasswordSucceeded = WebSecurity.ChangePassword(User.Identity.Name, localPassworldModel.OldPassword, localPassworldModel.NewPassword);
-                    }
-                    catch (Exception)
-                    {
-                        changePasswordSucceeded = false;
-                    }
-
-                    if (changePasswordSucceeded)
-                    {
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
-                    }
-                }
-            }
-            else
-            {
-                // User does not have a local password so remove any validation errors caused by a missing
-                // OldPassword field
-                ModelState state = ModelState["OldPassword"];
-                if (state != null)
-                {
-                    state.Errors.Clear();
-                }
-
-                if (ModelState.IsValid)
-                {
-                    try
-                    {
-                        WebSecurity.CreateAccount(User.Identity.Name, localPassworldModel.NewPassword);
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
-                    }
-                    catch (Exception)
-                    {
-                        ModelState.AddModelError("", String.Format("Unable to create local account. An account with the name \"{0}\" may already exist.", User.Identity.Name));
-                    }
-                }
-            
-
-            // If we got this far, something failed, redisplay form
-           // return View(model);
         
-            
-                var memberId = WebSecurity.GetUserId(User.Identity.Name);
-                //ViewBag.rovsmor = 
-                
+        public ActionResult AccountManagement()
+        {
+            var memberId = WebSecurity.GetUserId(User.Identity.Name);
+            UsersContext db = new UsersContext();
+            UserProfile userProfile = db.UserProfiles.Find(memberId);
 
-                using (UsersContext db = new UsersContext())
-                {
-                    //var accInfo = (from acc in db.UserProfiles
-                    //               where acc.UserId == memberId
-                    //               select acc).Single();
 
-                    UserProfile userProfile = db.UserProfiles.Find(memberId);
-                    //Project project = db.Projects.Find(id);
-                   accountViewModel.
-
-                    //accountViewModel.
-                    
-                    if (userProfile == null)
+            if (userProfile == null)
                     {
                         return HttpNotFound();
                     }
-                    else if (userProfile != null)
+            else if (userProfile != null)
                     {
                         return View(userProfile);
                     }
@@ -197,8 +127,6 @@ namespace InternetApp.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                }
-            }
         }
 
 
