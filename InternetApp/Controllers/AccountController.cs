@@ -109,7 +109,7 @@ namespace InternetApp.Controllers
         }
 
         //Open accountmanagement page for the logged in account.
-        public ActionResult Details()
+        public ActionResult DetailsPrivate()
         {
             var memberId = WebSecurity.GetUserId(User.Identity.Name);
             UsersContext db = new UsersContext();
@@ -169,7 +169,7 @@ namespace InternetApp.Controllers
                     db.SaveChanges();
                 }
             }
-            return RedirectToAction("Details");
+            return RedirectToAction("DetailsPrivate");
         }
 
 

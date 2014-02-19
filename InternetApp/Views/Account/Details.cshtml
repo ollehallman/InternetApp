@@ -1,9 +1,9 @@
 ﻿@model InternetApp.Models.UserProfile
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "DetailsPrivate";
 }
 
-@using (Html.BeginForm("Details", "Account"))
+@using (Html.BeginForm("DetailsPrivate", "Account"))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
