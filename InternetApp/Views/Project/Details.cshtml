@@ -1,57 +1,82 @@
-﻿@model InternetApp.Models.Project
+﻿@model InternetApp.Models.ContributeModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2 class="sub-header">@Html.DisplayFor(model => model.Projects.Name)</h2>
 
-<fieldset>
-    <legend>Project</legend>
+<div class="table-responsive">
+    <table class="table table-striped" id="project-table">
+        <thead>
+            <tr class="column-names">
+                <th>Name</th>
+                <th>Difficulty</th>
+                <th>Detail</th>
+                <th>Reward (USD)</th>
+                <th>Required skill</th>
+            </tr>
+        </thead>
+        <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.Projects.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Projects.Difficulty)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Projects.Detail)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Projects.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Projects.SkillName)
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Difficulty)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Difficulty)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Detail)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Detail)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Price)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Price)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.UserId)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.UserId)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.SkillName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.SkillName)
-    </div>
-</fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ProjectId }) |
+    @Html.ActionLink("Edit", "Edit", new { id = @Html.DisplayFor(modelItem => modelItem.Projects.ProjectId) }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<div class="contributions">
+    @foreach (var item in Model.cuList)
+    {
+        <div class="contribution-box">
+            <p>@item.Contribution</p>
+            <table class="user-info">
+                <tr>
+                    <td><b>@item.UserName</b></td>
+                </tr>
+                <tr>
+                    <td>Posted: @item.DateInserted</td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>
+
+<br /><b>Contribute:</b>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+    <textarea style="width: 500px; height: 150px;" name="Contribution"></textarea> <!-- collecting contribution -->
+
+
+    @Html.Hidden("ProjectId", Model.Projects.UserId)
+    @Html.Hidden("UserId", Model.Projects.ProjectId)
+
+    @Html.Hidden("DateInserted", DateTime.Now)
+
+    <p>
+        <input type="submit" value="Submit Contribution" />
+    </p>
+}

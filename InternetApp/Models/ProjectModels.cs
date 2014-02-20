@@ -16,6 +16,7 @@ namespace InternetApp.Models
         }
 
         public DbSet<Project> Projects { get; set; }
+        
     }
 
     [Table("Project")]

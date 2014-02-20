@@ -17,6 +17,7 @@ namespace InternetApp.Models
         }
 
         public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<Contribute> Contributes { get; set; }
     }
 
     [Table("UserProfile")]

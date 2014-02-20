@@ -4,8 +4,9 @@
     ViewBag.Title = "Search";
 }
 
-<h2>Results for "@ViewBag.searchString"</h2>
-
+<h1 class="page-header">Search for "@ViewBag.searchString"</h1>
+<a href="../Project/Search?searchString=@ViewBag.searchString">Search projects</a>
+<h2 class="sub-header">User results</h2>
 @foreach (var item in Model) {
     <h2>@Html.ActionLink(@item.UserName, "Details/" + @item.UserId)</h2>
     <ul>
@@ -13,3 +14,7 @@
     <li><a href="mailto:@Html.DisplayFor(modelItem => item.Email)">@Html.DisplayFor(modelItem => item.Email)</a></li>
     </ul>
 }
+
+
+
+

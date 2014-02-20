@@ -11,6 +11,12 @@ $(document).ready(function () {
         }
     });
 
+    $('input[type=submit], input[type=button], button').addClass('btn');
+    $('input[type=submit], input[type=button], button').addClass('btn-default');
+    $('input[type=text], input[type=number]').addClass('form-control');
+    $('input[type=text], input[type=number]').addClass('input-field-size');
+    
+
     $(document).on('change', '#skill-lvl-filter', function (e) {
         console.log("." + this.options[e.target.selectedIndex].text);
         $("#project-table").find("tr:not(.column-names)").hide();
