@@ -4,54 +4,47 @@
     ViewBag.Title = "Search";
 }
 
-<h2>Search for "@ViewBag.searchString"</h2>
+<h1 class="page-header">Search for "@ViewBag.searchString"</h1>
 
 <a href="../Account/Search?searchString=@ViewBag.searchString">Search users</a>
 
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Difficulty)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Detail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SkillName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.ActionLink(@item.Name, "Details/" + @item.ProjectId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Difficulty)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Detail)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.ActionLink(@item.UserId.ToString(), "../Account/Details/" + @item.UserId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SkillName)
-        </td>
-    </tr>
-}
-
-</table>
+<h2 class="sub-header">Project results</h2>
+<div class="table-responsive">
+    <table class="table table-striped" id="project-table">
+        <thead>
+            <tr class="column-names">
+                <th>Name</th>
+                <th>Difficulty</th>
+                <th>Detail</th>
+                <th>Price</th>
+                <th>User Id</th>
+                <th>Required skill</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(@item.Name, "Details/" + @item.ProjectId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Difficulty)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Detail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.ActionLink(@item.UserId.ToString(), "../Account/Details/" + @item.UserId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SkillName)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

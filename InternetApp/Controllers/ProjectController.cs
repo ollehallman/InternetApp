@@ -17,6 +17,8 @@ namespace InternetApp.Controllers
     public class ProjectController : Controller
     {
         private ProjectsContext db = new ProjectsContext();
+        private ContributesContext cdb = new ContributesContext();
+        private UsersContext udb = new UsersContext();
 
         //
         // GET: /Project/
@@ -42,6 +44,7 @@ namespace InternetApp.Controllers
         //
         // GET: /Project/Details/5
 
+        [HttpGet]
         public ActionResult Details(int id = 0)
         {
             Project project = db.Projects.Find(id);
@@ -49,7 +52,54 @@ namespace InternetApp.Controllers
             {
                 return HttpNotFound();
             }
-            return View(project);
+
+            int pid = project.ProjectId;
+
+            //List<UserProfile> ul = (from p in udb.UserProfiles where cList.Any(val => p.UserId == val) select p).ToList(); //List contains users that have contributed
+            //List<int> cList = (from p in cdb.Contributes where p.ProjectId == (pid) select p.UserId).ToList(); //lista av användarnas userId
+            
+            //List<Contribute> contributes = (from p in cdb.Contributes where p.ProjectId == (pid) select p).ToList(); // lista av contributes i relations till givet project
+
+            IEnumerable<ContributeUser> ContributeUsers = (from p in udb.UserProfiles
+                        join c in udb.Contributes on p.UserId equals c.UserId
+                        select new ContributeUser { Contribution = c.Contribution, ContributionNumber = c.ContributeNumber, UserId = c.UserId, ProjectId = c.ProjectId, DateInserted = c.DateInserted, UserName = p.UserName, FirstName = p.FirstName
+                        , LastName = p.LastName, Phone = p.Phone, Email = p.Email});
+
+            List<ContributeUser> cuList = ContributeUsers.ToList();
+            /*
+            List<object> cuList = new List<object>();
+            foreach (var item in ContributeUsers)
+            {
+                List<object> line = new List<object>();
+                line.Add(item.LastName);
+                cuList.Add(line);
+            } */
+
+
+            //List<ContributeUser> ContributeUsersList = ContributeUsers.ToList();
+
+            //ViewBag.ContributeUsers = ContributeUsers;
+
+            ContributeModel CModel = new ContributeModel();
+            CModel.cuList = cuList;
+            CModel.Projects = project;
+            return View(CModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Details(Contribute Contribute)
+        {
+
+            if (ModelState.IsValid)
+            {
+                cdb.Contributes.Add(Contribute);
+                cdb.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            return View();
         }
 
         //
