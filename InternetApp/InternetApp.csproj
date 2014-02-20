@@ -189,6 +189,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\ContributeModels.cs" />
     <Compile Include="Models\ProfileEntities.cs" />
     <Compile Include="Models\ProjectModels.cs" />
     <Compile Include="Models\SkillLevelModels.cs" />

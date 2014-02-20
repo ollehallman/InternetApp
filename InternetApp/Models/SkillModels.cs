@@ -26,6 +26,5 @@ namespace InternetApp.Models
         [Display(Name = "Skill name:")]
         [StringLength(225, ErrorMessage = "Your skill name can't be longer than 225 characters.")]
         public string SkillName { get; set; }
-        public Skill Skills { get; set; }
     }
 }
